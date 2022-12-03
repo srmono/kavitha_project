@@ -2,10 +2,10 @@ import React from 'react';
 import store from '../store/store';
 import { Card, Button } from 'antd';
 interface searchResultsProps {
-  setIsBooking: any;
+  setBooking: any;
 }
 const FlightSearchResults = (props: searchResultsProps) => {
-  const { setIsBooking } = props;
+  const { setBooking } = props;
   const availableFlights: any = store.getState().searchResults;
   const userpreferences: any = store.getState().userpreferences;
   const mode = store.getState().mode;
@@ -24,7 +24,7 @@ const FlightSearchResults = (props: searchResultsProps) => {
 
   const clickHandle = (flight: any) => {
     console.log(flight);
-    setIsBooking(true);
+    setBooking({ isbooking: true, flight });
   };
 
   if (mode.toLowerCase() == 'oneway') {
@@ -72,7 +72,11 @@ const FlightSearchResults = (props: searchResultsProps) => {
               <p>Availabale seats : {flight.avaliableSeats} </p>
               <h6>Price : {flight.prices[0].adult}</h6>
               <div className="d-flex w-100 justify-content-end">
-                <Button type="primary" onClick={() => clickHandle(flight)}>
+                <Button
+                  type="primary"
+                  onClick={() => clickHandle(flight)}
+                  disabled={flight.avaliableSeats <= 0}
+                >
                   Book
                 </Button>
               </div>
@@ -98,7 +102,12 @@ const FlightSearchResults = (props: searchResultsProps) => {
                     <p>Availabale seats : {flight.avaliableSeats} </p>
                     <h6>Price : {flight.prices[0].adult}</h6>
                     <div className="d-flex w-100 justify-content-end">
-                      <Button type="primary">Book</Button>
+                      <Button
+                        type="primary"
+                        onClick={() => clickHandle(flight)}
+                      >
+                        Book
+                      </Button>
                     </div>
                   </Card>
                 )
@@ -126,7 +135,12 @@ const FlightSearchResults = (props: searchResultsProps) => {
                     <p>Availabale seats : {flight.avaliableSeats} </p>
                     <h6>price : {flight.prices[0].adult}</h6>
                     <div className="d-flex w-100 justify-content-end">
-                      <Button type="primary">Book</Button>
+                      <Button
+                        type="primary"
+                        onClick={() => clickHandle(flight)}
+                      >
+                        Book
+                      </Button>
                     </div>
                   </Card>
                 )

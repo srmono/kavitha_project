@@ -45,7 +45,6 @@ const SearchBar = (props: searchProps) => {
     setShowResults(true);
   };
   const onchangeTripType = (e: any) => {
-    console.log(e.target.checked);
     if (e.target.checked) {
       setShowreturnTrip(true);
     } else {
@@ -57,20 +56,15 @@ const SearchBar = (props: searchProps) => {
     });
   };
   const onchangeFrom = (e: any) => {
-    console.log(e);
     setUserpreferences({ ...userpreferences, depatureDestination: e });
   };
   const onchangeTo = (e: any) => {
     setUserpreferences({ ...userpreferences, arrivalDestination: e });
   };
   const onchangeDate = (e: any) => {
-    console.log(e.toString());
-
     setUserpreferences({ ...userpreferences, departureAt: e.toString() });
   };
   const onchangeReturnDate = (e: any) => {
-    console.log(e.toString());
-
     setUserpreferences({
       ...userpreferences,
       returnDepartureAt: e.toString(),
@@ -152,38 +146,46 @@ const SearchBar = (props: searchProps) => {
         </div>
         <div className="w-100 mt-3">
           <p className="display-6">travelling date</p>
-          <div className="d-flex">
-            <Form.Item
-              name="date"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input date of travel',
-                },
-              ]}
-            >
-              <DatePicker
-                style={{ width: '100%' }}
-                onChange={onchangeDate}
-                size="large"
-              />
-            </Form.Item>
-            {showreturnTrip && (
+          <div className="d-flex w-100">
+            <div className="me-3 w-100">
               <Form.Item
-                name="returndate"
+                name="date"
+                style={{ width: '100%' }}
                 rules={[
                   {
                     required: true,
-                    message: 'Please input return date of travel',
+                    message: 'Please input date of travel',
                   },
                 ]}
               >
                 <DatePicker
-                  style={{ width: '100%' }}
-                  onChange={onchangeReturnDate}
+                  onChange={onchangeDate}
+                  placement={'bottomLeft'}
                   size="large"
+                  style={{ width: '100%' }}
                 />
               </Form.Item>
+            </div>
+            {showreturnTrip && (
+              <div className=" w-100">
+                <Form.Item
+                  style={{ width: '100%' }}
+                  name="returndate"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input return date of travel',
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    style={{ width: '100%' }}
+                    onChange={onchangeReturnDate}
+                    placement={'bottomLeft'}
+                    size="large"
+                  />
+                </Form.Item>
+              </div>
             )}
           </div>
         </div>
